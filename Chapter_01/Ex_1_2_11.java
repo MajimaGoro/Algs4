@@ -2,6 +2,9 @@
 // 
 // 1.2.12 为SmartDate添加一个方法dayOfTheWeek()，为日期中每周的日返回 Monday、Tuesday、Wednesday、Thursday、Friday、Saturday 或 Sunday 中的适当值。你可以假定时间是21世纪。
 
+// 1.2.19 字符串解析。为你在练习1.2.13中实现的Date和Transaction类型编写能够解析字符串数据的构造函数。它接受一个String参数指定的初始值，格式如表1.2.20所示：
+// Date 由斜杠分隔的整数  5/22/1939
+
 import edu.princeton.cs.algs4.StdOut;
 
 public class Ex_1_2_11 {
@@ -20,6 +23,20 @@ public class Ex_1_2_11 {
         month = m;
         day = d;
         year = y;
+    }
+
+    // @param date  String 由斜杠分隔的整数 格式为5/22/1939
+    public Ex_1_2_11(String date) {
+        String[] strings = date.split("/");
+        int[] ints = new int[strings.length];
+        for (int i = 0; i < ints.length; i++)
+            ints[i] = Integer.parseInt(strings[i]);
+
+        if (!isVaild(ints[0], ints[1], ints[2]))
+            throw new IllegalArgumentException("Invalid date");
+        month = ints[0];
+        day = ints[1];
+        year = ints[2];
     }
 
     private static boolean isVaild(int m, int d, int y) {
@@ -113,6 +130,9 @@ public class Ex_1_2_11 {
         StdOut.println(Ex_1_2_11.dayOfTheweek(7, 16, 2017));
         StdOut.println(Ex_1_2_11.dayOfTheweek(11, 22, 1992));
         // StdOut.println(Ex_1_2_11.dayOfTheweek(10, 10, 1582));
+
+        Ex_1_2_11 dateString = new Ex_1_2_11("5/22/1939");
+        StdOut.println(dateString);
 
         Ex_1_2_11 date1 = new Ex_1_2_11(8, 14, 2017);
         StdOut.println(date1);
